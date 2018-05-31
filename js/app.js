@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 
 app.set('view engine', 'pug');
+app.use('/static', express.static('css'));
+app.use('/static', express.static('images'));
 
 app.get('/', (req, res) => {
     res.render('index');
