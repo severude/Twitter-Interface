@@ -1,0 +1,18 @@
+{
+  "name": "twitter-interface",
+  "version": "0.0.1",
+  "description": "Twitter Interface",
+  "main": "./js/app.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/severude/Twitter-Interface"
+  },
+  "dependencies": {
+    "express": "^4.15.2",
+    "pug": "^2.0.3"
+  }
+}
