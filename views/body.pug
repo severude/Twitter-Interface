@@ -51,63 +51,24 @@
   .grid-33
     .app--section
       ul.app--user--list
-        li
-          .circle--fluid
-            .circle--fluid--cell.circle--fluid--primary
-              a.app--tweet--author
-                .app--avatar(style='background-image: url(static/f-spore.png)')
-                  img(src='static/f-spore.png')
-                h4 #{name}
-                p #{screenName}
-            .circle--fluid--cell
-              a.button.button-text Unfollow
-        li
-          .circle--fluid
-            .circle--fluid--cell.circle--fluid--primary
-              a.app--tweet--author
-                .app--avatar(style='background-image: url(static/f-spore.png)')
-                  img(src='static/f-spore.png')
-                h4 #{name}
-                p #{screenName}
-            .circle--fluid--cell
-              a.button.button-text Unfollow
-        li
-          .circle--fluid
-            .circle--fluid--cell.circle--fluid--primary
-              a.app--tweet--author
-                .app--avatar(style='background-image: url(static/f-spore.png)')
-                  img(src='static/f-spore.png')
-                h4 #{name}
-                p #{screenName}
-            .circle--fluid--cell
-              a.button.button-text Unfollow
-        li
-          .circle--fluid
-            .circle--fluid--cell.circle--fluid--primary
-              a.app--tweet--author
-                .app--avatar(style='background-image: url(static/f-spore.png)')
-                  img(src='static/f-spore.png')
-                h4 #{name}
-                p #{screenName}
-            .circle--fluid--cell
-              a.button Follow
-        li
-          .circle--fluid
-            .circle--fluid--cell.circle--fluid--primary
-              a.app--tweet--author
-                .app--avatar(style='background-image: url(static/f-spore.png)')
-                  img(src='static/f-spore.png')
-                h4 #{name}
-                p #{screenName}
-            .circle--fluid--cell
-              a.button.button-text Unfollow
+        each follow in following
+          li
+            .circle--fluid
+              .circle--fluid--cell.circle--fluid--primary
+                a.app--tweet--author
+                  .app--avatar(style='background-image: url(' + follow.profileImage + ')')
+                    img(src= follow.profileImage)
+                  h4 #{follow.name}
+                  p #{follow.screenName}
+              .circle--fluid--cell
+                a.button.button-text Unfollow
   .grid-33
     .app--section
       ul.app--message--list
         li
           h3
             | Conversation with 
-            a #{name}
+            a Jill Spore
           ul.app--message--conversation
             li.app--message
               .app--avatar(style='background-image: url(static/f-spore.png)')

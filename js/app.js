@@ -17,6 +17,7 @@ let T = new Twit({
 
 let user = {};
 let tweets = [];
+let following = [];
 
 T.get('account/verify_credentials', { skip_status: true })
 .catch(function (err) {
@@ -45,8 +46,18 @@ T.get('statuses/user_timeline', { screen_name: user.screenName, count:5 }, funct
     }
 });
 
+T.get('friends/list', { count:5 }, function(err, data, response) {
+    for(let index = 0; index < data.users.length; index++) {
+        let follow = {};
+        follow.name = data.users[index].name;
+        follow.screenName = '@' + data.users[index].screen_name;
+        follow.profileImage = data.users[index].profile_image_url;
+        following.push(follow);
+    }
+});
+
 app.get('/', (req, res) => {
-    res.render('index', {user, tweets} );
+    res.render('index', {user, tweets, following} );
 });
 
 app.listen(3000, () => {
