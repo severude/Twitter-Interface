@@ -66,10 +66,9 @@
     .app--section
       ul.app--message--list
         li
-          h3
-            | Conversation with 
-            a Jill Spore
+          h3 #{messages[0].text}
           ul.app--message--conversation
+          if(messages.length > 1)
             li.app--message
               .app--avatar(style='background-image: url(static/f-spore.png)')
                 img(src='static/f-spore.png')
