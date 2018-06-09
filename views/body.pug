@@ -17,7 +17,7 @@
           li
             strong.app--tweet--timestamp #{tweet.date}
             a.app--tweet--author
-              .app--avatar(style='background-image: url(' + tweet.profileImage + ')')
+              .app--avatar(style=`background-image: url('${tweet.profileImage}')`)
                 img(src= user.profileImage)
               h4 #{tweet.name}
               |  #{tweet.screenName}
@@ -56,7 +56,7 @@
             .circle--fluid
               .circle--fluid--cell.circle--fluid--primary
                 a.app--tweet--author
-                  .app--avatar(style='background-image: url(' + follow.profileImage + ')')
+                  .app--avatar(style=`background-image: url('${follow.profileImage}')`)
                     img(src= follow.profileImage)
                   h4 #{follow.name}
                   p #{follow.screenName}
