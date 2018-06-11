@@ -1,7 +1,8 @@
+// Routing declarations
 const express = require('express');
 const router = express.Router();
 const Twit = require('twit');
-const config = require('./config');
+const config = require('../config');
 
 // User authentication information stored in config.js
 let T = new Twit({
@@ -75,11 +76,12 @@ T.get('direct_messages/events/list', { count:5 }, function(err, data, response) 
     }
 });
 
-// Post a new tweet when form button is clicked
+// Post a new tweet
 router.post('/', (req, res) => {
     let newTweet = req.body.status;
     T.post('statuses/update', { status: newTweet}, function(err, data, response) {})
 
+    // Render the new tweet
     let tweet = {};
     let date = new Date().toString();
     tweet.date = date.slice(4,10);
