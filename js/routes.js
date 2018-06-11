@@ -21,7 +21,7 @@ let messages = [];
 // Get the user profile
 T.get('account/verify_credentials', { skip_status: true })
 .catch(function (err) {
-    console.log('caught error', err.stack)
+    console.log('Error retrieving user profile: ', err.stack)
 })
 .then(function (result) {
     user.name = result.data.name;
@@ -46,6 +46,8 @@ T.get('statuses/user_timeline', { screen_name: user.screenName, count:5 }, funct
             tweet.profileImage = data[index].user.profile_image_url;
             tweets.push(tweet);
         }
+    } else {
+        console.log('Error retrieving tweets: ' + err.stack);
     }
 });
 
@@ -59,6 +61,8 @@ T.get('friends/list', { count:5 }, function(err, data, response) {
             follow.profileImage = data.users[index].profile_image_url;
             following.push(follow);
         }
+    } else {
+        console.log('Error retrieving friends: ' + err.stack);
     }
 });
 
@@ -73,13 +77,19 @@ T.get('direct_messages/events/list', { count:5 }, function(err, data, response) 
             message.time = date.slice(4,10) + ' ' + date.slice(16,25);
             messages.push(message);
         }
+    } else {
+        console.log('Error retrieving messages: ' + err.stack);
     }
 });
 
 // Post a new tweet
 router.post('/', (req, res) => {
     let newTweet = req.body.status;
-    T.post('statuses/update', { status: newTweet}, function(err, data, response) {})
+    T.post('statuses/update', { status: newTweet}, function(err, data, response) {
+        if(err) {
+            console.log('Error posting tweet: ' + err.stack);
+        }
+    })
 
     // Render the new tweet
     let tweet = {};
