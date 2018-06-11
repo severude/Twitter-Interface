@@ -63,20 +63,35 @@ T.get('friends/list', { count:5 }, function(err, data, response) {
 
 // Get five of the user's direct messages
 T.get('direct_messages/events/list', { count:5 }, function(err, data, response) {
-    if(err) {
-        let message = {};
-        message.text = data.errors[0].message;
-        messages.push(message);
-    } else {
-        console.log(data);
+    if(!err) {
+        for(let index = 0; index < data.events.length; index++) {
+            let message = {};
+            message.text = data.events[index].message_create.message_data.text;
+            let timestamp = parseInt(data.events[index].created_timestamp);
+            let date = new Date(timestamp).toString();
+            message.time = date.slice(4,10) + ' ' + date.slice(16,25);
+            messages.push(message);
+        }
     }
 });
 
 // Post a new tweet when form button is clicked
 router.post('/', (req, res) => {
-    const tweet = req.body.status;
-    T.post('statuses/update', { status: tweet }, function(err, data, response) {
-    });
+    let newTweet = req.body.status;
+    T.post('statuses/update', { status: newTweet}, function(err, data, response) {})
+
+    let tweet = {};
+    let date = new Date().toString();
+    tweet.date = date.slice(4,10);
+    tweet.text = newTweet;
+    tweet.retweet = 0;
+    tweet.favorite = 0;
+    tweet.name = user.name;
+    tweet.screenName = user.screenName;
+    tweet.profileImage = user.profileImage;
+    tweets.pop();
+    tweets.unshift(tweet);
+
     res.redirect('/');
 });
 
