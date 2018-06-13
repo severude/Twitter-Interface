@@ -17,3 +17,4 @@ module.exports = config;
 2) npm install
 3) nodemon or npm start
 
+You did amazing with this project, especially with the middleware functions. They flowed right down the chain of production and, as well, they will always be necessary when using the Express router. 

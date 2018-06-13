@@ -110,7 +110,7 @@ router.post('/', (req, res) => {
     tweets.pop();
     tweets.unshift(tweet);
 
-    res.redirect('/');
+    res.redirect('back');
 });
 
 // Render home page route with all captured user data
