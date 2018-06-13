@@ -69,6 +69,13 @@
           h3 Messages
           ul.app--message--conversation
             each message in messages
-              li.app--message
-                p.app--message--text #{message.text}
-                p.app--message--timestamp #{message.time}
+              if message.user === user.name
+                li.app--message--me
+                  .app--avatar(style=`background-image:url('${user.profileImage}')`)
+                  p.app--message--text #{message.text}
+                  p.app--message--timestamp #{message.time}
+              else
+                li.app--message
+                  .app--avatar(style=`background-image: url('${message.image}')`)
+                  p.app--message--text #{message.text}
+                  p.app--message--timestamp #{message.time}

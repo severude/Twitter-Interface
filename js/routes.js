@@ -67,7 +67,7 @@ T.get('friends/list', { count:5 }, function(err, data, response) {
 });
 
 // Get five of the user's direct messages
-T.get('direct_messages/events/list', { count:5 }, function(err, data, response) {
+T.get('direct_messages/events/list', { count: 8 }, function(err, data, response) {
     if(!err) {
         for(let index = 0; index < data.events.length; index++) {
             let message = {};
@@ -75,6 +75,12 @@ T.get('direct_messages/events/list', { count:5 }, function(err, data, response) 
             let timestamp = parseInt(data.events[index].created_timestamp);
             let date = new Date(timestamp).toString();
             message.time = date.slice(4,10) + ' ' + date.slice(16,25);
+            message.id = data.events[index].message_create.sender_id;
+            // Capture message user profile info
+            T.get(`https://api.twitter.com/1.1/users/show.json?user_id=${message.id}`, function (err, profile, response) {
+                message.user = profile.name;
+                message.image = profile.profile_image_url;
+              });
             messages.push(message);
         }
     } else {
@@ -89,7 +95,7 @@ router.post('/', (req, res) => {
         if(err) {
             console.log('Error posting tweet: ' + err.stack);
         }
-    })
+    });
 
     // Render the new tweet
     let tweet = {};
